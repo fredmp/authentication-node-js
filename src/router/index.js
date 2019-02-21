@@ -23,7 +23,10 @@ module.exports = app => {
         return res.status(422).send({ error: 'Email is in use' });
       }
       const user = await new User({ email, password }).save();
-      return res.json({ token: tokenForUser(user) });
+      return res
+        .status(201)
+        .set('Authorization', `Bearer ${tokenForUser(user)}`)
+        .send();
     } catch (error) {
       return next(error);
     }
