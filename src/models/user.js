@@ -21,6 +21,12 @@ UserSchema.pre('save', function preCallback(next) {
   });
 });
 
+UserSchema.methods.comparePassword = function comparePassword(candidatePassword, callback) {
+  bcrypt.compare(candidatePassword, this.password, function compareCallback(err, isMatch) {
+    return err ? callback(err) : callback(null, isMatch);
+  });
+};
+
 UserSchema.methods.toJSON = function toJSON() {
   const userObject = this.toObject();
   delete userObject.password;

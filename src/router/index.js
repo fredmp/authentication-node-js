@@ -1,16 +1,13 @@
-const jwt = require('jwt-simple');
 const User = require('../models/user');
-const { authenticate } = require('../services/passport');
-
-const { JWT_SECRET } = process.env;
-
-function tokenForUser({ id }) {
-  return jwt.encode({ sub: id, iat: new Date().getTime() }, JWT_SECRET);
-}
+const { requireJWT, requireSignin, tokenForUser } = require('../services/passport');
 
 module.exports = app => {
-  app.get('/', authenticate, (req, res) => {
+  app.get('/', requireJWT, (req, res) => {
     res.send({ hi: 'hello' });
+  });
+
+  app.post('/signin', requireSignin, (req, res) => {
+    res.set('Authorization', `Bearer ${tokenForUser(req.user)}`).send();
   });
 
   app.post('/signup', async (req, res, next) => {
