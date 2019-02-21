@@ -5,12 +5,16 @@
   "main": "index.js",
   "author": "Frederico Martins Porto <martinsporto@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "mongoose": "^5.4.14",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

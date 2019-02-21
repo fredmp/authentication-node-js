@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 
 const { PORT, LOG_MODE } = process.env;
 
-console.log('==', PORT, LOG_MODE);
-
 const app = express();
 
 app.use(morgan(LOG_MODE));
