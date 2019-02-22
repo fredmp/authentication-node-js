@@ -31,12 +31,13 @@ const localLogin = new LocalStrategy(localOptions, async function localStrategy(
 ) {
   try {
     const user = await User.findOne({ email });
-    user.comparePassword(password, function comparePasswordCallback(error, isMatch) {
+    if (!user) return done(null, false);
+    return user.comparePassword(password, function comparePasswordCallback(error, isMatch) {
       if (error) return done(error);
       return done(null, isMatch ? user : false);
     });
   } catch (error) {
-    done(error, false);
+    return done(error, false);
   }
 });
 
